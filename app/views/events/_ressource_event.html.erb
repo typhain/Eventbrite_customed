@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kit UI</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" integrity="sha384-wxqG4glGB3nlqX0bi23nmgwCSjWIW13BdLUEYC4VIMehfbcro/ATkyDsF/AbIOVe" crossorigin="anonymous">
+<body>
+  <div class="text-center pt-1">
+    <h1 class="display-3 mt-4 mb-3 text-primary">Event</h1>
+       <p>Know everything about the event !</p>
+  </div>
+  <div class = "container d-flex justify-content-start">
+    <div class="row">
+      <div class="col-8">
+          <%= image_tag "#{@event.price.digits.last}-h.jpg", class: 'card-img-top' %>
+      </div>
+      <div class="col-4 card border-primary">
+            <div class="card-body">
+              <h2 class="card-title"><%= @event.title %></h2>
+              <p class="card-text"><%= @event.administrator.first_name %> <%= @event.administrator.last_name %></p>
+              <h5 class="card-title pt-2"><%= @event.start_date.to_formatted_s(:long) %> <br>
+              <%= @event.location %></h5>
+
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class = "container">
+    <div class="row">
+      <div class="col-8">
+          <div class="card-body">
+            <h4 class="card-title">Description</h4>
+              <p class="card-text"><%= @event.description %></p>
+          </div>
+      </div>
+      <div class="col-4 card-body">
+        <% if current_user == nil %>
+      <button type="button" class="btn btn-success" style="width: 100%;"><%= link_to "Login to join", new_user_session_path %></button>
+        <div class="social-icons d-flex justify-content-between mt-5">
+          <% end %>
+                <a href="#">
+                  <i class="fab fa-linkedin-in fa-2x"></i>
+                </a>
+                <a href="#">
+                  <i class="fab fa-twitter fa-2x"></i>
+                </a>
+                <a href="#">
+                  <i class="fab fa-facebook fa-2x"></i>
+                </a>
+                <a href="#">
+                  <i class="fab fa-instagram fa-2x"></i>
+                </a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

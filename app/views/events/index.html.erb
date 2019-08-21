@@ -1,5 +1,5 @@
 <%= render "shared/banner" %>
-<%= render "card_events" %>
+
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">Eventbrite</h1>
@@ -10,45 +10,5 @@
   <a class="btn btn-success btn-lg" <%= link_to "Create New Event", new_event_path %></a>
 </div> <br><br>
 
-<div class="container">
-  <div class="row ">
-    <% @events.each do |n| %>
-      <div class="col-sm-4">
-        <div class="d-flex justify-content-center">
 
-          <div class="card" style="width: 25rem; ">
-            <%= image_tag "#{n.price.digits.last}.jpg", class: 'card-img-top' %>
-            <div class="card-body">
-              <h5 class="card-title"><%= n.title[0,30] %>
-                <% unless n.title.size < 30 %>
-                ...
-                <% end %></h5>
-              <p class="card-text"><%= n.start_date.to_formatted_s(:short) %> • <%= n.location[0,15] %>...</p>
-
-                <div>
-                  <div>
-                    <span class="badge badge-primary"> <%= n.price %> € </span>
-                    <% unless n.users.count == 0 %>
-                    <span class="badge badge-success"> <%= n.users.count %>
-                      <% if n.users.count == 1 %>
-                      guest
-                      <% else %>
-                      guests </span>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div><br>
-
-              <div class="container">
-                <a <%= link_to "View", event_path(n)%> </a>
-              </div>
-
-            </div>
-          </div>
-
-    </div><br><br>
-    </div>
-    <% end %>
-
-  </div>
-</div>
+<%= render "card_events" %>
