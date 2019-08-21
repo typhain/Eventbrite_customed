@@ -1,0 +1,31 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Profil</h1>
+  <p class="lead"> <%= @user.email %> </p>
+  <a <%= link_to "Edit", edit_user_registration_path %> </a>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <% @user_events.each do |n| %>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="mb-1"><%= n.title %></h5>
+                <p class="card-text"><%= n.description %></p>
+              <div class="d-flex w-100 justify-content-between">
+                <a <%= link_to "View", event_path(n.id)%> </a>
+                <div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div><br>
+      </div>
+    <% end %>
+  </div>
+</div>

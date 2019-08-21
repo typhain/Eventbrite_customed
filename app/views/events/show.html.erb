@@ -1,0 +1,63 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">View Event</h1>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="card">
+    <%= image_tag "#{@event.price.digits.last}-h.jpg", class: 'card-img-top' %>
+    <div class="card-body">
+      <h5 class="card-title"><%= @event.title %></h5>
+      <p class="card-text"><%= @event.start_date.to_formatted_s(:long) %></p>
+      <p class="card-text"><%= @event.location %></p>
+      <p class="card-text"><small class="text-muted">Organised by:</small></p>
+      <p class="card-text"><%= @event.administrator.first_name %> <%= @event.administrator.last_name %></p>
+      <p class="card-text"><small class="text-muted"><%= @event.users.count %>
+        <% if @event.users.count == 1  %>
+        guest:
+        <% else %>
+      guests:
+      <% end  %></small></p>
+      <% @event.users.each do |u| %>
+      <li> <%= u.email %>
+        <% end %> </li><br>
+
+        <div class="container bg-light border border-primary rounded">
+          <p><strong>Description:</strong></p>
+          <p><%= @event.description %></p>
+        </div><br>
+    </div>
+    <br>
+
+      <% unless @admin || @attendee || current_user == nil %>
+        <div class="row justify-content-center">
+
+          <%= form_tag attendances_path(@event) do %>
+            <article>
+              <% if flash[:error].present? %>
+                <div id="error_explanation">
+                  <p><%= flash[:error] %></p>
+                </div>
+              <% end %>
+            <label class="amount">
+              <span> Amount: <%= @event.price %>.00€  </span>
+            </label>
+            </article>
+
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Pay and join event."
+                    data-amount="<%= @event.price * 100 %>"
+                    data-locale="auto"></script>
+          <% end %>
+
+        </div><br><br>
+      <% end %>
+    <% if current_user == nil %>
+      <div class="text-center">
+        <a class="btn btn-outline-primary btn-lg" <%= link_to "Login to join", new_user_session_path %></a>
+      </div><br><br>
+    <% end %>
+  </div>
+</div><br>
